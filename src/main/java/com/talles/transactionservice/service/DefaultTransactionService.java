@@ -17,6 +17,8 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +38,7 @@ public class DefaultTransactionService implements TransactionService {
     public TransactionDto createTransaction(TransactionCreationDto transactionCreationDto) {
 
         if (transactionCreationDto.getTransactionDate() == null) {
-            transactionCreationDto.setTransactionDate(LocalDateTime.now());
+            transactionCreationDto.setTransactionDate(ZonedDateTime.now(ZoneOffset.UTC));
         }
 
         Transaction transaction = new Transaction();

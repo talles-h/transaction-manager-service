@@ -26,7 +26,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -63,8 +64,8 @@ class TransactionServiceIntegrationTests {
 	@Test
 	void createTransactionWithoutAmount() throws Exception {
 		TransactionCreationDto transactionCreationDto = new TransactionCreationDto();
-		LocalDateTime localDateTime = LocalDateTime.now();
-		transactionCreationDto.setTransactionDate(localDateTime.truncatedTo(ChronoUnit.SECONDS));
+		ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneOffset.UTC);
+		transactionCreationDto.setTransactionDate(zonedDateTime);
 		transactionCreationDto.setDescription("Transaction Invalid 1");
 
 		MvcResult result = mockMvc.perform(post("/v1/transactions")
@@ -85,8 +86,8 @@ class TransactionServiceIntegrationTests {
 	@Test
 	void createAndGetValidTransactionWithDate() throws Exception {
 		TransactionCreationDto transactionCreationDto = new TransactionCreationDto();
-		LocalDateTime localDateTime = LocalDateTime.now();
-		transactionCreationDto.setTransactionDate(localDateTime.truncatedTo(ChronoUnit.SECONDS));
+		ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneOffset.UTC).truncatedTo(ChronoUnit.MILLIS);
+		transactionCreationDto.setTransactionDate(zonedDateTime);
 		transactionCreationDto.setDescription("Transaction Test 1");
 		transactionCreationDto.setAmountUSD(new BigDecimal("38.10"));
 
@@ -132,8 +133,8 @@ class TransactionServiceIntegrationTests {
 	@Test
 	void getTransactionWithInvalidCurrency() throws Exception {
 		TransactionCreationDto transactionCreationDto = new TransactionCreationDto();
-		LocalDateTime localDateTime = LocalDateTime.now();
-		transactionCreationDto.setTransactionDate(localDateTime.truncatedTo(ChronoUnit.SECONDS));
+		ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneOffset.UTC).truncatedTo(ChronoUnit.MILLIS);
+		transactionCreationDto.setTransactionDate(zonedDateTime);
 		transactionCreationDto.setDescription("Transaction Test 1");
 		transactionCreationDto.setAmountUSD(new BigDecimal("38.10"));
 

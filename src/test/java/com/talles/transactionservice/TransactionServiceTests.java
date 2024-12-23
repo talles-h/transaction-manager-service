@@ -17,7 +17,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +54,7 @@ class TransactionServiceTests {
     void getTransactionByIdTest_Success() {
         Transaction transaction = new Transaction();
         transaction.setId(1L);
-        transaction.setTransactionDate(LocalDateTime.now());
+        transaction.setTransactionDate(ZonedDateTime.now(ZoneOffset.UTC));
         transaction.setAmountUSD(new BigDecimal("10.31"));
         transaction.setDescription("Transaction Test Get 1");
 
@@ -90,7 +91,7 @@ class TransactionServiceTests {
     void getTransactions_Success() {
         Transaction transaction = new Transaction();
         transaction.setId(1L);
-        transaction.setTransactionDate(LocalDateTime.now());
+        transaction.setTransactionDate(ZonedDateTime.now(ZoneOffset.UTC));
         transaction.setAmountUSD(new BigDecimal("10.31"));
         transaction.setDescription("Transaction Test Get 1");
 

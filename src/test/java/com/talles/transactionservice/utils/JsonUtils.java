@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.talles.transactionservice.utils.date.ZonedDateTimeDeserializer;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
 
 public class JsonUtils {
 
@@ -20,7 +23,9 @@ public class JsonUtils {
 
     public static <T> T fromJson(String json, Class<T> clazz) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer());
+        mapper.registerModule(module);
         return mapper.readValue(json, clazz);
     }
 }

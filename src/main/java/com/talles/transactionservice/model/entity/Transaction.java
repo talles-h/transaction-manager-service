@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * Entity that represents a transaction internally (used for persistence).
@@ -23,7 +24,7 @@ public class Transaction {
     private String description;
 
     @Column(nullable = false)
-    private LocalDateTime transactionDate;
+    private ZonedDateTime transactionDate;
 
     @Column(nullable = false)
     private BigDecimal amountUSD;

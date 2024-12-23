@@ -37,4 +37,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new StandardErrorResponse(HttpStatus.BAD_REQUEST, "Invalid Request", errors), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DateTimeFormatException.class)
+    public ResponseEntity<StandardErrorResponse> handleValidationExceptions(DateTimeFormatException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(ex.getField(), ex.getMessage());
+        return new ResponseEntity<>(new StandardErrorResponse(HttpStatus.BAD_REQUEST, "Invalid Request", errors), HttpStatus.BAD_REQUEST);
+    }
+
 }
