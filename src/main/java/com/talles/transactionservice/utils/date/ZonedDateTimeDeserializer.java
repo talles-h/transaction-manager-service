@@ -1,6 +1,5 @@
 package com.talles.transactionservice.utils.date;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -10,7 +9,6 @@ import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.talles.transactionservice.exception.DateTimeFormatException;
 
 import java.io.IOException;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +17,7 @@ public class ZonedDateTimeDeserializer extends JsonDeserializer<ZonedDateTime> i
     private String fieldName;
 
     @Override
-    public ZonedDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public ZonedDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         String dateStr = jsonParser.getText();
 
         // Check if the string contains a time zone (either 'Z' or an offset)
