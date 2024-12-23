@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/transactions")
@@ -45,9 +46,25 @@ public class TransactionController {
     @Parameter(name = "countryCurrency", description = "The country and currency required to be returned. Format must be country-currency.",
             example = "Argentina-Peso")
     @GetMapping("/{id}")
-    public ResponseEntity<TransactionDto> getTransaction(@PathVariable Long id, @RequestParam(required = false) String countryCurrency) {
-        TransactionDto transactionDto = transactionService.getTransaction(id, countryCurrency);
+    public ResponseEntity<TransactionDto> getTransactionById(@PathVariable Long id, @RequestParam(required = false) String countryCurrency) {
+        TransactionDto transactionDto = transactionService.getTransactionById(id, countryCurrency);
 
         return ResponseEntity.ok(transactionDto);
+    }
+
+    @Operation(summary = "Retrieve all transactions")
+    @Parameter(name = "countryCurrency", description = "The country and currency required to be returned. Format must be country-currency.",
+            example = "Argentina-Peso")
+    @GetMapping
+    public ResponseEntity<List<TransactionDto>> getTransactions(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "true") boolean asc,
+            @RequestParam(required = false) String countryCurrency) {
+
+        List<TransactionDto> transactions = transactionService.getTransactions(countryCurrency, page, size, sortBy, asc);
+
+        return ResponseEntity.ok(transactions);
     }
 }

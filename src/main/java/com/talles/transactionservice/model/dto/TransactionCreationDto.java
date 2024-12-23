@@ -21,7 +21,7 @@ public class TransactionCreationDto {
     private String description;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @Schema(description = "The transaction date and time in ISO format")
+    @Schema(description = "The transaction date and time in ISO format", example = "2024-12-23T15:13:18")
     private LocalDateTime transactionDate;
 
     @NotNull

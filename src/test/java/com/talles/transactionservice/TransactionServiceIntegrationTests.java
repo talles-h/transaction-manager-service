@@ -34,6 +34,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+/**
+ * Basic integration tests.
+ * More should be added for edge cases and expected error scenarios.
+ * Note: these tests depends on the external API for exchange rate. If there is instability of this API or if
+ * the exchange rate for the currency does not exist, the test will fail.
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = TransactionServiceApplication.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
